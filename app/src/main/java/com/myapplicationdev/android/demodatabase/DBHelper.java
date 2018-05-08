@@ -1,5 +1,6 @@
 package com.myapplicationdev.android.demodatabase;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -40,4 +41,22 @@ public class DBHelper extends SQLiteOpenHelper {
         // Create table(s) again
         onCreate(db);
     }
+
+    public void insertTask(String description, String date){
+
+        // Get an instance of the database for writing
+        SQLiteDatabase db = this.getWritableDatabase();
+        // We use ContentValues object to store the values for
+        //  the db operation
+        ContentValues values = new ContentValues();
+        // Store the column name as key and the description as value
+        values.put(COLUMN_DESCRIPTION, description);
+        // Store the column name as key and the date as value
+        values.put(COLUMN_DATE, date);
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_TASK, null, values);
+        // Close the database connection
+        db.close();
+    }
+
 }
